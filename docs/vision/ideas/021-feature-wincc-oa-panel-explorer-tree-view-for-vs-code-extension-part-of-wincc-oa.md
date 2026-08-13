@@ -5,7 +5,7 @@ description: "Vision idea tracked as GitHub issue #21."
 
 - Status: **done**
 - GitHub issue: [winccoa-tools-pack/.github#21](https://github.com/winccoa-tools-pack/.github/issues/21)
-- Last sync: 2026-08-12 04:14:15 UTC
+- Last sync: 2026-08-13 04:18:47 UTC
 - Labels:
 - ctrl-lang
 - vs-code-extension
