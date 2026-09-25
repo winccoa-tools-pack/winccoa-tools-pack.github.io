@@ -6,6 +6,8 @@ sidebar_position: 1
 
 Documentation hub for **winccoa-tools-pack** — a collection of open-source tools that make [WinCC OA](https://www.winccoa.com/) development **faster, safer, and more consistent**.
 
+For an organisation-level overview, start with [WinCC OA Engineering Toolkit](/docs/engineering-toolkit).
+
 ## Start here
 
 - Browse the tools documentation in **Tools**.

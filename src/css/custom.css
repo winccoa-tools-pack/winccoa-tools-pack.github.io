@@ -179,3 +179,324 @@
     grid-template-columns: 1fr;
   }
 }
+
+/* Engineering toolkit welcome page */
+.toolkitWelcomePage {
+  width: min(1180px, calc(100vw - 32px));
+  margin: 0 auto;
+  padding: 1rem 0 4rem;
+}
+
+.toolkitWelcomeHero,
+.toolkitWelcomePanel {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(130, 162, 201, 0.16);
+  border-radius: 30px;
+  background: linear-gradient(
+    140deg,
+    rgba(6, 17, 29, 0.96),
+    rgba(13, 33, 56, 0.92)
+  );
+  box-shadow: 0 26px 70px rgba(0, 0, 0, 0.2);
+}
+
+.toolkitWelcomeHero {
+  padding: 3.5rem 3.25rem 3.1rem;
+}
+
+.toolkitWelcomeHero::before {
+  content: '';
+  position: absolute;
+  inset: -40px auto auto -70px;
+  width: 280px;
+  height: 280px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(45, 212, 191, 0.24), transparent 68%);
+  pointer-events: none;
+}
+
+.toolkitWelcomeHero::after {
+  content: '';
+  position: absolute;
+  inset: auto -80px -120px auto;
+  width: 340px;
+  height: 340px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(96, 165, 250, 0.22), transparent 66%);
+  pointer-events: none;
+}
+
+.toolkitWelcomeEyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 16px;
+  border-radius: 999px;
+  background: rgba(96, 165, 250, 0.14);
+  color: #d8e9ff;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.toolkitWelcomeEyebrow::before {
+  content: '';
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #2dd4bf;
+  box-shadow: 0 0 18px rgba(45, 212, 191, 0.8);
+}
+
+.toolkitWelcomeHero h1 {
+  margin: 22px 0 16px;
+  max-width: 12ch;
+  color: #f4f8fc;
+  font-size: clamp(2.8rem, 5vw, 5.4rem);
+  line-height: 0.94;
+  letter-spacing: -0.06em;
+}
+
+.toolkitWelcomeHero p {
+  margin: 0;
+  max-width: 760px;
+  color: #a7bad2;
+  font-size: clamp(1rem, 1.8vw, 1.35rem);
+  line-height: 1.65;
+}
+
+.toolkitWelcomePills,
+.toolkitWelcomeTags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.toolkitWelcomePills {
+  margin-top: 28px;
+}
+
+.toolkitWelcomePill,
+.toolkitWelcomeTag,
+.toolkitWelcomeRepoBadge {
+  padding: 8px 12px;
+  border-radius: 999px;
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.toolkitWelcomePill {
+  color: #f4f8fc;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(130, 162, 201, 0.12);
+}
+
+.toolkitWelcomeGrid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 24px;
+  margin-top: 24px;
+}
+
+.toolkitWelcomeSpan12 {
+  grid-column: span 12;
+}
+
+.toolkitWelcomeSpan8 {
+  grid-column: span 8;
+}
+
+.toolkitWelcomeSpan6 {
+  grid-column: span 6;
+}
+
+.toolkitWelcomeSpan4 {
+  grid-column: span 4;
+}
+
+.toolkitWelcomePanel {
+  padding: 28px;
+}
+
+.toolkitWelcomePanelStrong {
+  background: linear-gradient(
+    140deg,
+    rgba(8, 20, 34, 0.97),
+    rgba(13, 33, 56, 0.92)
+  );
+}
+
+.toolkitWelcomePanel h2 {
+  margin: 0 0 10px;
+  color: #8da8c8;
+  font-size: 0.88rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.toolkitWelcomeLead {
+  margin: 0 0 24px;
+  color: #a7bad2;
+  font-size: 1rem;
+  line-height: 1.55;
+}
+
+.toolkitWelcomeStats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 18px;
+}
+
+.toolkitWelcomeStat,
+.toolkitWelcomeCard,
+.toolkitWelcomeRepo {
+  border-radius: 22px;
+  background: rgba(6, 17, 29, 0.42);
+  border: 1px solid rgba(130, 162, 201, 0.12);
+}
+
+.toolkitWelcomeStat {
+  padding: 22px;
+}
+
+.toolkitWelcomeValue {
+  color: #f4f8fc;
+  font-size: clamp(2rem, 3.4vw, 3.4rem);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.05em;
+}
+
+.toolkitWelcomeLabel,
+.toolkitWelcomeCard p,
+.toolkitWelcomeRepo p,
+.toolkitWelcomeFootnote {
+  color: #a7bad2;
+  line-height: 1.55;
+}
+
+.toolkitWelcomeLabel a {
+  color: #67e8f9;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.toolkitWelcomeLabel a:hover {
+  text-decoration: underline;
+}
+
+.toolkitWelcomeLabel {
+  margin-top: 10px;
+  font-size: 0.96rem;
+}
+
+.toolkitWelcomeStack {
+  display: grid;
+  gap: 14px;
+}
+
+.toolkitWelcomeCard {
+  padding: 18px 18px 16px;
+}
+
+.toolkitWelcomeCard h3,
+.toolkitWelcomeRepo h3 {
+  margin: 0 0 8px;
+  color: #f4f8fc;
+  font-size: 1.08rem;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.toolkitWelcomeCard p,
+.toolkitWelcomeRepo p {
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+.toolkitWelcomeTags {
+  margin-top: 14px;
+  gap: 10px;
+}
+
+.toolkitWelcomeTag {
+  color: #dff8ff;
+  background: rgba(103, 232, 249, 0.1);
+  border: 1px solid rgba(103, 232, 249, 0.16);
+}
+
+.toolkitWelcomeRepo {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 14px;
+  align-items: start;
+  padding: 18px 18px 16px;
+}
+
+.toolkitWelcomeRepoBadge {
+  justify-self: end;
+  color: #d6e7ff;
+  white-space: nowrap;
+  background: rgba(96, 165, 250, 0.12);
+}
+
+.toolkitWelcomeCard a,
+.toolkitWelcomeRepo a {
+  color: #67e8f9;
+}
+
+.toolkitWelcomeQuote {
+  margin: 0;
+  max-width: 34ch;
+  color: #f4f8fc;
+  font-size: clamp(1.35rem, 2.4vw, 2.1rem);
+  line-height: 1.45;
+  letter-spacing: -0.025em;
+}
+
+.toolkitWelcomeFootnote {
+  margin-top: 16px;
+  font-size: 0.94rem;
+}
+
+@media screen and (max-width: 980px) {
+  .toolkitWelcomeSpan8,
+  .toolkitWelcomeSpan6,
+  .toolkitWelcomeSpan4 {
+    grid-column: span 12;
+  }
+}
+
+@media screen and (max-width: 680px) {
+  .toolkitWelcomePage {
+    width: min(100vw - 18px, 1180px);
+    padding-bottom: 2rem;
+  }
+
+  .toolkitWelcomeHero,
+  .toolkitWelcomePanel {
+    border-radius: 22px;
+  }
+
+  .toolkitWelcomeHero {
+    padding: 30px 24px 28px;
+  }
+
+  .toolkitWelcomePanel {
+    padding: 22px;
+  }
+
+  .toolkitWelcomeStats {
+    grid-template-columns: 1fr;
+  }
+
+  .toolkitWelcomeRepo {
+    grid-template-columns: 1fr;
+  }
+
+  .toolkitWelcomeRepoBadge {
+    justify-self: start;
+  }
+}
