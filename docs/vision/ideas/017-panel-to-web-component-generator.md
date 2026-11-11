@@ -5,7 +5,7 @@ description: "Vision idea tracked as GitHub issue #17."
 
 - Status: **open**
 - GitHub issue: [winccoa-tools-pack/.github#17](https://github.com/winccoa-tools-pack/.github/issues/17)
-- Last sync: 2026-11-10 09:37:52 UTC
+- Last sync: 2026-11-11 09:13:10 UTC
 - Labels:
 - enhancement
 - ctrl-lang
@@ -20,7 +20,7 @@ description: "Vision idea tracked as GitHub issue #17."
 Create a generator that converts OA panels into modern web components.
 
 **Features:**  
-- Supports Lit, Svelte, React  
+- Supports Siemens standard Wub UI components
 - Maps DP bindings to props  
 - Preserves event logic  
 - Generates reusable components  
@@ -36,6 +36,7 @@ PNL -> XML -> JSON
   -> JS (typescript)
   -> CSS
 
-It might be done with the oficial node delivered by WinCC OA to reduce the ctrl2-to-typecript conversion, because the oa-node can call ctrl code as well. That  measn it shall be possible to start the 'old' ctrl code as well.
-This will be tricky, in case the ctrl-code calls methdos with shapes (which in most cases do)
-I whish you many luck. it is comple project, but it will be helpfull for big WinCC OA community to use the modern tolls instead the very old (but sitll good and vyer stable) pnl format.
+
+I whish you many luck. it is complex project, but it will be helpfull for big WinCC OA community to use the modern tolls instead the very old (but sitll good and vyer stable) pnl format.
+
+Maybe one hint. Provide Splash based tests first. Let create UML diagram from user actions to document the good scenarios and the edge cases. This will helps the AI agent to create new business logic in type-script as well
