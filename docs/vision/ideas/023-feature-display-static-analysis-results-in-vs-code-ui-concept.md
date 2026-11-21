@@ -5,7 +5,7 @@ description: "Vision idea tracked as GitHub issue #23."
 
 - Status: **open**
 - GitHub issue: [winccoa-tools-pack/.github#23](https://github.com/winccoa-tools-pack/.github/issues/23)
-- Last sync: 2026-11-20 09:55:45 UTC
+- Last sync: 2026-11-21 09:36:18 UTC
 - Labels:
 - oa-lint
 - QG
