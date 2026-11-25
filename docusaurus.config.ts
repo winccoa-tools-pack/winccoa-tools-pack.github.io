@@ -88,7 +88,7 @@ const config: Config = {
         },
         {to: '/docs/success-stories', label: 'Success Stories', position: 'left'},
         {to: '/docs/team', label: 'Team', position: 'left'},
-        {href: '/activity.html', label: 'Activity', position: 'left'},
+        {href: 'https://winccoa-tools-pack.github.io/activity.html', label: 'Activity', position: 'left'},
         {
           to: '/devdays26',
           label: 'DevDays 2026',
