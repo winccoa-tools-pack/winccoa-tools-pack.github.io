@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Live activity - WinCC OA Tools Pack</title>
+  <meta name="description" content="Latest commits and pull requests, all open pull requests and open issues per repository of the WinCC OA Tools Pack.">
+  <style>
+    :root {
+      --bg: #ffffff; --fg: #1f2328; --muted: #59636e; --border: #d1d9e0; --card: #f6f8fa;
+      --link: #0969da; --ok: #1a7f37; --warn: #9a6700; --draft: #59636e;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #0d1117; --fg: #e6edf3; --muted: #9198a1; --border: #3d444d; --card: #151b23;
+        --link: #4493f8; --ok: #3fb950; --warn: #d29922; --draft: #9198a1;
+      }
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--bg); color: var(--fg); font: 15px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+    a { color: var(--link); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    header, main { max-width: 1200px; margin: 0 auto; padding: 0 16px; }
+    header { padding-top: 24px; }
+    h1 { margin: 0 0 4px; font-size: 26px; }
+    h2 { margin: 32px 0 8px; font-size: 20px; border-bottom: 1px solid var(--border); padding-bottom: 6px; }
+    .sub { color: var(--muted); margin: 0 0 12px; }
+    .toolbar { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 12px 0; }
+    .btn { display: inline-block; padding: 6px 12px; border: 1px solid var(--border); border-radius: 6px; background: var(--card); color: var(--fg); cursor: pointer; font: inherit; }
+    .btn.primary { background: #1f883d; border-color: #1f883d; color: #fff; }
+    .btn.danger { background: #d1242f; border-color: #d1242f; color: #fff; }
+    .btn:hover { text-decoration: none; filter: brightness(0.95); }
+    table { width: 100%; border-collapse: collapse; margin: 8px 0; }
+    th, td { text-align: left; padding: 6px 8px; border-bottom: 1px solid var(--border); vertical-align: top; }
+    th { color: var(--muted); font-weight: 600; font-size: 13px; }
+    td.num, th.num { text-align: right; white-space: nowrap; }
+    .muted { color: var(--muted); }
+    .tag { display: inline-block; font-size: 12px; padding: 0 6px; border: 1px solid var(--border); border-radius: 10px; margin-left: 4px; }
+    .state-open { color: var(--ok); }
+    .state-merged { color: #8250df; }
+    .state-closed { color: #d1242f; }
+    .state-draft { color: var(--draft); }
+    .err { color: #d1242f; padding: 8px 0; }
+    .loading { color: var(--muted); padding: 8px 0; }
+    input[type="search"] { padding: 6px 10px; border: 1px solid var(--border); border-radius: 6px; background: var(--bg); color: var(--fg); min-width: 220px; font: inherit; }
+    footer { max-width: 1200px; margin: 40px auto 24px; padding: 0 16px; color: var(--muted); font-size: 13px; }
+    @media (max-width: 700px) { .hide-sm { display: none; } }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Live activity</h1>
+    <p class="sub">
+      WinCC OA Tools Pack, organization <a href="https://github.com/winccoa-tools-pack">winccoa-tools-pack</a>.
+      Data comes live from the public GitHub API and is cached in your browser for 5 minutes.
+    </p>
+    <div class="toolbar">
+      <a class="btn danger" href="https://github.com/winccoa-tools-pack/.github/issues/new?template=01-bug-report.yml">Report a bug</a>
+      <a class="btn primary" href="https://github.com/winccoa-tools-pack/.github/issues/new?template=02-feature-request.yml">Request a feature</a>
+      <a class="btn" href="https://winccoa-tools-pack.github.io/">Documentation</a>
+      <a class="btn" href="https://github.com/winccoa-tools-pack/.github/issues">Org issues</a>
+      <button class="btn" id="refresh" type="button">Refresh</button>
+      <span class="muted" id="updated"></span>
+    </div>
+  </header>
+
+  <main>
+    <h2>Last 10 commits</h2>
+    <p class="sub">Default branches of all repositories, newest first.
+      <a href="https://github.com/search?q=org%3Awinccoa-tools-pack+committer-date%3A%3E2020-01-01&amp;type=commits&amp;s=committer-date&amp;o=desc">More on GitHub</a></p>
+    <div id="commits" class="loading">Loading ...</div>
+
+    <h2>Last 10 pull requests</h2>
+    <p class="sub">Recently updated, open or closed.
+      <a href="https://github.com/pulls?q=is%3Apr+org%3Awinccoa-tools-pack+sort%3Aupdated-desc">More on GitHub</a></p>
+    <div id="latest-prs" class="loading">Loading ...</div>
+
+    <h2>All open pull requests <span class="muted" id="open-pr-count"></span></h2>
+    <p class="sub"><a href="https://github.com/pulls?q=is%3Aopen+is%3Apr+org%3Awinccoa-tools-pack">Open on GitHub</a></p>
+    <div class="toolbar">
+      <input id="pr-filter" type="search" placeholder="Filter pull requests ..." aria-label="Filter pull requests">
+      <label><input id="hide-bots" type="checkbox"> Hide Dependabot</label>
+    </div>
+    <div id="open-prs" class="loading">Loading ...</div>
+
+    <h2>Issues and pull requests per repository</h2>
+    <div class="toolbar"><input id="filter" type="search" placeholder="Filter repositories ..." aria-label="Filter repositories"></div>
+    <div id="repos" class="loading">Loading ...</div>
+  </main>
+
+  <footer>
+    Made with love for and by the WinCC OA community. WinCC OA and Siemens are trademarks of Siemens AG.
+    This is a community project and not affiliated with Siemens AG.
+  </footer>
+
+  <script>
+  (function () {
+    'use strict';
+    var ORG = 'winccoa-tools-pack';
+    var API = 'https://api.github.com';
+    var TTL_MS = 5 * 60 * 1000;
+
+    function el(tag, attrs, children) {
+      var node = document.createElement(tag);
+      if (attrs) Object.keys(attrs).forEach(function (k) {
+        if (k === 'text') node.textContent = attrs[k];
+        else if (k === 'class') node.className = attrs[k];
+        else node.setAttribute(k, attrs[k]);
+      });
+      (children || []).forEach(function (c) { node.appendChild(typeof c === 'string' ? document.createTextNode(c) : c); });
+      return node;
+    }
+    function safeUrl(u) {
+      return (typeof u === 'string' && u.indexOf('https://github.com/') === 0) ? u : 'https://github.com/' + ORG;
+    }
+    function link(text, href) { return el('a', { href: safeUrl(href), text: text, rel: 'noopener' }); }
+    function ago(iso) {
+      var s = Math.max(0, (Date.now() - new Date(iso).getTime()) / 1000);
+      if (s < 3600) return Math.round(s / 60) + ' min ago';
+      if (s < 86400) return Math.round(s / 3600) + ' h ago';
+      return Math.round(s / 86400) + ' d ago';
+    }
+    function repoOf(url) { var m = /repos\/[^/]+\/([^/]+)/.exec(url || ''); return m ? m[1] : ''; }
+
+    function getJson(path, force) {
+      var key = 'wotp:' + path;
+      if (!force) {
+        try {
+          var hit = JSON.parse(sessionStorage.getItem(key));
+          if (hit && Date.now() - hit.t < TTL_MS) return Promise.resolve(hit.d);
+        } catch (e) { /* ignore */ }
+      }
+      return fetch(API + path, { headers: { Accept: 'application/vnd.github+json' } }).then(function (r) {
+        if (!r.ok) {
+          var reset = r.headers.get('x-ratelimit-reset');
+          var msg = 'GitHub API answered ' + r.status;
+          if ((r.status === 403 || r.status === 429) && reset) msg += ' (rate limit, resets ' + new Date(reset * 1000).toLocaleTimeString() + ')';
+          throw new Error(msg);
+        }
+        return r.json();
+      }).then(function (d) {
+        try { sessionStorage.setItem(key, JSON.stringify({ t: Date.now(), d: d })); } catch (e) { /* ignore */ }
+        return d;
+      });
+    }
+    function show(id, node) { var box = document.getElementById(id); box.className = ''; box.textContent = ''; box.appendChild(node); }
+    function fail(id, err) { var box = document.getElementById(id); box.className = 'err'; box.textContent = 'Could not load data: ' + err.message; }
+
+    function table(headers, rows) {
+      var thead = el('thead', null, [el('tr', null, headers.map(function (h) { return el('th', { text: h.text, class: h.cls || '' }); }))]);
+      var tbody = el('tbody', null, rows);
+      return el('table', null, [thead, tbody]);
+    }
+
+    function renderCommits(data) {
+      var rows = (data.items || []).map(function (c) {
+        var repo = c.repository ? c.repository.name : '';
+        var msg = (c.commit && c.commit.message ? c.commit.message : '').split('\n')[0];
+        var who = c.author ? c.author.login : (c.commit && c.commit.author ? c.commit.author.name : '');
+        return el('tr', null, [
+          el('td', null, [link(repo, 'https://github.com/' + ORG + '/' + repo)]),
+          el('td', null, [link(msg, c.html_url)]),
+          el('td', { class: 'hide-sm' }, [who]),
+          el('td', { class: 'num muted', text: ago(c.commit.committer.date) })
+        ]);
+      });
+      show('commits', table([{ text: 'Repository' }, { text: 'Commit' }, { text: 'Author', cls: 'hide-sm' }, { text: 'When', cls: 'num' }], rows));
+    }
+
+    function prState(p) {
+      if (p.pull_request && p.pull_request.merged_at) return ['merged', 'state-merged'];
+      if (p.state === 'closed') return ['closed', 'state-closed'];
+      if (p.draft) return ['draft', 'state-draft'];
+      return ['open', 'state-open'];
+    }
+    function prRows(items, withState) {
+      return items.map(function (p) {
+        var st = prState(p);
+        var cells = [
+          el('td', null, [link(repoOf(p.repository_url), 'https://github.com/' + ORG + '/' + repoOf(p.repository_url))]),
+          el('td', null, [link('#' + p.number + ' ' + p.title, p.html_url)]),
+          el('td', { class: 'hide-sm' }, [p.user ? p.user.login : ''])
+        ];
+        if (withState) cells.push(el('td', { class: st[1], text: st[0] }));
+        cells.push(el('td', { class: 'num muted', text: ago(p.updated_at) }));
+        return el('tr', null, cells);
+      });
+    }
+    function renderLatestPrs(data) {
+      show('latest-prs', table([{ text: 'Repository' }, { text: 'Pull request' }, { text: 'Author', cls: 'hide-sm' }, { text: 'State' }, { text: 'Updated', cls: 'num' }], prRows(data.items || [], true)));
+    }
+
+    function loadOpenPrs(force) {
+      var all = [];
+      function page(n) {
+        return getJson('/search/issues?q=' + encodeURIComponent('org:' + ORG + ' is:pr is:open') + '&sort=updated&order=desc&per_page=100&page=' + n, force).then(function (d) {
+          all = all.concat(d.items || []);
+          if ((d.items || []).length === 100 && n < 5) return page(n + 1);
+          return { total: d.total_count, items: all };
+        });
+      }
+      return page(1);
+    }
+    var openPrData = null;
+    function renderOpenPrs(d) {
+      if (d) openPrData = d;
+      if (!openPrData) return;
+      var q = document.getElementById('pr-filter').value.trim().toLowerCase();
+      var hideBots = document.getElementById('hide-bots').checked;
+      var items = openPrData.items.filter(function (p) {
+        var who = p.user ? p.user.login : '';
+        if (hideBots && who.toLowerCase().indexOf('dependabot') === 0) return false;
+        if (!q) return true;
+        return (repoOf(p.repository_url) + ' ' + p.title + ' ' + who + ' #' + p.number).toLowerCase().indexOf(q) !== -1;
+      });
+      document.getElementById('open-pr-count').textContent = '(' + items.length + ' of ' + openPrData.total + ')';
+      show('open-prs', table([{ text: 'Repository' }, { text: 'Pull request' }, { text: 'Author', cls: 'hide-sm' }, { text: 'State' }, { text: 'Updated', cls: 'num' }], prRows(items, true)));
+    }
+    document.getElementById('pr-filter').addEventListener('input', function () { renderOpenPrs(); });
+    document.getElementById('hide-bots').addEventListener('change', function () { renderOpenPrs(); });
+
+    var repoData = null;
+    function renderRepos() {
+      if (!repoData) return;
+      var q = document.getElementById('filter').value.trim().toLowerCase();
+      var rows = repoData.repos.filter(function (r) { return !q || r.name.toLowerCase().indexOf(q) !== -1; }).map(function (r) {
+        var prs = repoData.prCounts[r.name] || 0;
+        var issues = Math.max(0, r.open_issues_count - prs);
+        return el('tr', null, [
+          el('td', null, [link(r.name, r.html_url)]),
+          el('td', { class: 'num' }, [link(String(issues), r.html_url + '/issues')]),
+          el('td', { class: 'num' }, [link(String(prs), r.html_url + '/pulls')]),
+          el('td', { class: 'hide-sm muted', text: r.pushed_at ? ago(r.pushed_at) : '' })
+        ]);
+      });
+      show('repos', table([{ text: 'Repository' }, { text: 'Open issues', cls: 'num' }, { text: 'Open PRs', cls: 'num' }, { text: 'Last push', cls: 'hide-sm' }], rows));
+    }
+    document.getElementById('filter').addEventListener('input', renderRepos);
+
+    function loadAll(force) {
+      var q = encodeURIComponent('org:' + ORG);
+      var openPrs = loadOpenPrs(force);
+      getJson('/search/commits?q=' + q + encodeURIComponent(' committer-date:>2020-01-01') + '&sort=committer-date&order=desc&per_page=10', force).then(renderCommits).catch(function (e) { fail('commits', e); });
+      getJson('/search/issues?q=' + encodeURIComponent('org:' + ORG + ' is:pr') + '&sort=updated&order=desc&per_page=10', force).then(renderLatestPrs).catch(function (e) { fail('latest-prs', e); });
+      openPrs.then(renderOpenPrs).catch(function (e) { fail('open-prs', e); });
+      Promise.all([
+        getJson('/orgs/' + ORG + '/repos?type=public&sort=pushed&per_page=100', force),
+        openPrs.catch(function () { return { items: [] }; })
+      ]).then(function (res) {
+        var counts = {};
+        res[1].items.forEach(function (p) { var n = repoOf(p.repository_url); counts[n] = (counts[n] || 0) + 1; });
+        repoData = { repos: res[0].filter(function (r) { return !r.archived; }), prCounts: counts };
+        renderRepos();
+      }).catch(function (e) { fail('repos', e); });
+      document.getElementById('updated').textContent = 'Loaded ' + new Date().toLocaleTimeString();
+    }
+
+    document.getElementById('refresh').addEventListener('click', function () { loadAll(true); });
+    loadAll(false);
+  })();
+  </script>
+</body>
+</html>
